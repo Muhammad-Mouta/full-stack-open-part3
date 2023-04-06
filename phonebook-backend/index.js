@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
@@ -22,9 +24,9 @@ app.get('/api/persons', (request, response, next) => {
 app.get('/info', (request, response, next) => {
     Person.countDocuments({})
         .then(n => {
-            info = 
+            const info =
                 `<p>Phonebook has info for ${n} people</p><p>${new Date()}</p>`
-            response.send(info)  
+            response.send(info)
         })
         .catch(error => next(error))
 })
@@ -62,7 +64,7 @@ app.post('/api/persons', (request, response, next) => {
     //         error: "Number of the person is missing"
     //     })
     // }
-    
+
     const person = new Person({
         name: body.name,
         number: body.number
@@ -84,8 +86,8 @@ app.put('/api/persons/:id', (request, response, next) => {
     }
 
     Person.findByIdAndUpdate(
-        request.params.id, 
-        person, 
+        request.params.id,
+        person,
         {
             new: true,
             runValidators: true,
@@ -99,17 +101,17 @@ app.put('/api/persons/:id', (request, response, next) => {
 })
 
 const unknownEndpoint = (request, response) => {
-    response.status(404).send({error: 'uknown endpoint'})
+    response.status(404).send({ error: 'uknown endpoint' })
 }
 app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
-    console.log(error);
+    console.log(error)
 
     if (error.name === 'CastError') {
-        return response.status(400).send({error: 'malformatted id'})
+        return response.status(400).send({ error: 'malformatted id' })
     } else if (error.name === 'ValidationError') {
-        return response.status(400).send({error: error.message})
+        return response.status(400).send({ error: error.message })
     }
 
     next(error)

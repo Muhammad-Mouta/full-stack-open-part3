@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 // Configure the mongoose middleware
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
@@ -13,7 +15,7 @@ const Person = mongoose.model('Person', personSchema)
 
 const listPeople = (password, dbName) => {
     // Connect to the database
-    const url = 
+    const url =
         `mongodb+srv://mouta:${password}@cluster0.cqvjjze.mongodb.net/${dbName}?retryWrites=true&w=majority`
     mongoose.connect(url)
 
@@ -29,7 +31,7 @@ const listPeople = (password, dbName) => {
 
 const newPerson = (password, dbName, personName, personNumber) => {
     // Connect to the database
-    const url = 
+    const url =
         `mongodb+srv://mouta:${password}@cluster0.cqvjjze.mongodb.net/${dbName}?retryWrites=true&w=majority`
     mongoose.connect(url)
 
